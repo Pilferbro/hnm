@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SDOROOT package_type="xml">
+    <SYS_HEAD>
+        <ORG_SYS_ID>010404</ORG_SYS_ID>
+        <RET>
+            <SDO>
+                <RET_MSG>success</RET_MSG>
+                <RET_CODE>030021000000</RET_CODE>
+            </SDO>
+        </RET>
+        <SERVICE_SCENE>03</SERVICE_SCENE>
+        <CONSUMER_ID>010404</CONSUMER_ID>
+        <MODULE_ID>flo</MODULE_ID>
+        <TRAN_TIMESTAMP>115242641</TRAN_TIMESTAMP>
+        <USER_LANG>CHINESE</USER_LANG>
+        <TRAN_DATE>20370102</TRAN_DATE>
+        <SERVICE_CODE>11002000122</SERVICE_CODE>
+        <CONSUMER_SEQ_NO>0104042022072600000019</CONSUMER_SEQ_NO>
+        <RET_STATUS>S</RET_STATUS>
+    </SYS_HEAD>
+    <APP_HEAD>
+        <USER_ID>E9999</USER_ID>
+        <BRANCH_ID>9999</BRANCH_ID>
+    </APP_HEAD>
+    <LOCAL_HEAD>
+    <RURAL_BRANCH_ID>0000</RURAL_BRANCH_ID>
+    <KEY_DATE></KEY_DATE>
+    </LOCAL_HEAD>
+</SDOROOT>

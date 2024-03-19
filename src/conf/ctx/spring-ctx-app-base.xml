@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+          http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+          http://www.springframework.org/schema/tx
+          http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+          http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context-4.1.xsd
+          http://www.springframework.org/schema/aop
+          http://www.springframework.org/schema/aop/spring-aop-4.1.xsd" default-autowire="byName">
+        <!-- 注意上面的default-autowire="byName"，如果没有这个声明那么HibernateDaoSupport中的sessionFactory不会被注入 -->
+        <!-- 约定优于配置，约定优于配置 -->
+    <!-- 子工程自己保持 -->
+    <!--配置应用级别的服务层及持久层注解类,,具体的需要应用进行修改,例子如下-->
+    <context:component-scan base-package="com.gdnybank.hnm" use-default-filters="false">
+	    <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+	    <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+    </context:component-scan>
+    <bean id="propertiesService" class="com.gdnybank.hnm.pub.service.PropertiesService">
+        <property name="propertyPaths">
+            <list>
+                <value>conf/props/jdbc.properties</value>        <!--数据库连接配置文件  -->
+                <value>conf/props/dummy.properties</value>       <!--挡板相关参数配置 -->
+                <value>conf/props/system.properties</value>      <!--  系统级别的相关配置参数 -->
+                <value>conf/props/security.properties</value>    <!-- 安全相关配置参数 -->
+                <value>conf/props/flowctrl.properties</value>    <!-- 流量控制参数设置文件 -->
+            </list>
+        </property>
+    </bean>
+
+	<!--bean id="dataSource"
+		class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>JNDI_MFP</value>
+		</property>
+	</bean-->
+</beans>

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+        "
+	default-autowire="byName">
+
+	<!-- 同步核心会计日期 -->
+	<bean name="SynCoreDateJob" class="com.gdnybank.hnm.timejob.SynCoreDateJob" />
+	<bean id="SynCoreDateJobDetail"
+		  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="SynCoreDateJob"/>
+		<property name="targetMethod" value="exeJob"/>
+	</bean>
+	<bean id="SynCoreDateJobTrigger"
+		  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="SynCoreDateJobDetail"/>
+		<property name="cronExpression" value="0 0 6 * * ?"/>
+	</bean>
+
+	<!-- 机构信息同步 -->
+	<bean name="SynBranchInfoJob" class="com.gdnybank.hnm.timejob.BranchTimeJob" />
+	<bean id="SynBranchInfoJobDetail"
+		  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="SynBranchInfoJob"/>
+		<property name="targetMethod" value="exeJob"/>
+	</bean>
+	<bean id="SynBranchInfoJobTrigger"
+		  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="SynBranchInfoJobDetail"/>
+		<property name="cronExpression" value="0 0 6 * * ?"/>
+	</bean>
+
+	<!-- 站定状态调整短信提醒 -->
+	<bean name="WarnTimeSendMegJob" class="com.gdnybank.hnm.timejob.WarnTimeSendMegJob" />
+	<bean id="WarnTimeSendMegJobDetail"
+		  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="WarnTimeSendMegJob"/>
+		<property name="targetMethod" value="exeJob"/>
+	</bean>
+	<bean id="WarnTimeSendMegJobTrigger"
+		  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="WarnTimeSendMegJobDetail"/>
+		<property name="cronExpression" value="0 0 8 * * ?"/>
+	</bean>
+	<!-- 站点定时任务 -->
+	<bean name="SiteTimeTask" class="com.gdnybank.hnm.timejob.SiteTimeTask" />
+	<bean id="SiteTimeTaskDetail"
+		  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="SiteTimeTask"/>
+		<property name="targetMethod" value="exeJob"/>
+	</bean>
+	<bean id="SiteTimeTaskTrigger"
+		  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="SiteTimeTaskDetail"/>
+		<property name="cronExpression" value="0 0 23 * * ?"/>
+	</bean>
+
+	<!-- 销管卸数定时任务 -->
+	<bean name="LoadXGDataJob" class="com.gdnybank.hnm.timejob.LoadXGDataJob" />
+	<bean id="LoadXGDataJobDetail"
+		  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="LoadXGDataJob"/>
+		<property name="targetMethod" value="exeJob"/>
+	</bean>
+	<bean id="LoadXGDataJobTrigger"
+		  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="LoadXGDataJobDetail"/>
+		<property name="cronExpression" value="0 */30 * * * ?"/>
+	</bean>
+
+	<!-- 助农卸数定时任务 -->
+	<bean name="LoadZNDataJob" class="com.gdnybank.hnm.timejob.LoadZNDataJob" />
+	<bean id="LoadZNDataJobDetail"
+		  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="LoadZNDataJob"/>
+		<property name="targetMethod" value="exeJob"/>
+	</bean>
+	<bean id="LoadZNDataJobTrigger"
+		  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="LoadZNDataJobDetail"/>
+		<property name="cronExpression" value="0 */30 * * * ?"/>
+	</bean>
+
+	<!-- 我的沟通、我的审批有未处理的信息，第二日发出一条通知给对应处理人 -->
+	<bean name="ApprovalWarnSendMsgJob" class="com.gdnybank.hnm.timejob.ApprovalWarnSendMsgJob" />
+	<bean id="ApprovalWarnSendMsgJobDetail"
+		  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="ApprovalWarnSendMsgJob"/>
+		<property name="targetMethod" value="exeJob"/>
+	</bean>
+	<bean id="ApprovalWarnSendMsgJobTrigger"
+		  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="ApprovalWarnSendMsgJobDetail"/>
+		<property name="cronExpression" value="0 0 9 * * ?"/>
+	</bean>
+
+	<!-- 系统自动巡检定时任务 -->
+	<bean name="Inspection1Job" class="com.gdnybank.hnm.timejob.Inspection1Job" />
+	<bean id="Inspection1JobDetail"
+		  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="Inspection1Job"/>
+		<property name="targetMethod" value="exeJob"/>
+	</bean>
+	<bean id="Inspection1JobTrigger"
+		  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="Inspection1JobDetail"/>
+		<property name="cronExpression" value="0 0 23 * * ?"/>
+	</bean>
+
+	<!-- 风险处置到期前3天，发送短信通知定时任务 -->
+	<bean name="QuestionWarnSendMsgJob" class="com.gdnybank.hnm.timejob.QuestionWarnSendMsgJob" />
+	<bean id="QuestionWarnSendMsgJobDetail"
+		  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="QuestionWarnSendMsgJob"/>
+		<property name="targetMethod" value="exeJob"/>
+	</bean>
+	<bean id="QuestionWarnSendMsgJobTrigger"
+		  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="QuestionWarnSendMsgJobDetail"/>
+		<property name="cronExpression" value="0 0 9 * * ?"/>
+	</bean>
+
+
+	<!-- 新增风险信息，发送短信通知机构管理人定时任务 -->
+	<bean name="NewlyRiskWarnSendMsgJob1" class="com.gdnybank.hnm.timejob.NewlyRiskWarnSendMsgJob1" />
+	<bean id="NewlyRiskWarnSendMsgJob1Detail"
+		  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="NewlyRiskWarnSendMsgJob1"/>
+		<property name="targetMethod" value="exeJob"/>
+	</bean>
+	<bean id="NewlyRiskWarnSendMsgJob1Trigger"
+		  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="NewlyRiskWarnSendMsgJob1Detail"/>
+		<property name="cronExpression" value="0 0 9 * * ?"/>
+	</bean>
+
+
+	<!-- 新增风险信息，发送短信通知整改人定时任务 -->
+<!--	<bean name="NewlyRiskWarnSendMsgJob2" class="com.gdnybank.hnm.timejob.NewlyRiskWarnSendMsgJob2" />-->
+<!--	<bean id="NewlyRiskWarnSendMsgJob2Detail"-->
+<!--		  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">-->
+<!--		<property name="targetObject" ref="NewlyRiskWarnSendMsgJob2"/>-->
+<!--		<property name="targetMethod" value="exeJob"/>-->
+<!--	</bean>-->
+<!--	<bean id="NewlyRiskWarnSendMsgJob2Trigger"-->
+<!--		  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">-->
+<!--		<property name="jobDetail" ref="NewlyRiskWarnSendMsgJob2Detail"/>-->
+<!--		<property name="cronExpression" value="0 0 9 * * ?"/>-->
+<!--	</bean>-->
+
+	<!-- 黑灰名单定时任务 -->
+	<bean name="LoadBlackBookDataJob" class="com.gdnybank.hnm.timejob.LoadBlackBookDataJob" />
+	<bean id="LoadBlackBookDataJobDetail"
+		  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="LoadBlackBookDataJob"/>
+		<property name="targetMethod" value="exeJob"/>
+	</bean>
+	<bean id="LoadBlackBookDataJobTrigger"
+		  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="LoadBlackBookDataJobDetail"/>
+		<property name="cronExpression" value="0 0 */1 * * ?"/>
+	</bean>
+
+	<!-- 卸数本卡他行交易流水 -->
+	<bean name="LoadSynTradeInfoDataJob" class="com.gdnybank.hnm.timejob.LoadSynTradeInfoDataJob" />
+	<bean id="LoadSynTradeInfoDataJobDetail"
+		  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="LoadSynTradeInfoDataJob"/>
+		<property name="targetMethod" value="exeJob"/>
+	</bean>
+	<bean id="LoadSynTradeInfoDataJobTrigger"
+		  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="LoadSynTradeInfoDataJobDetail"/>
+		<property name="cronExpression" value="0 0 */1 * * ?"/>
+	</bean>
+
+	<!-- 合并AllTradeInfo数据 -->
+	<bean name="MergerTradeInfoDataJob" class="com.gdnybank.hnm.timejob.MergerTradeInfoData" />
+	<bean id="MergerTradeInfoDataJobDetail"
+		  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="MergerTradeInfoDataJob"/>
+		<property name="targetMethod" value="exeJob"/>
+	</bean>
+	<bean id="MergerTradeInfoDataJobTrigger"
+		  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="MergerTradeInfoDataJobDetail"/>
+		<property name="cronExpression" value="0 */30 * * * ?"/>
+	</bean>
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean"
+		  autowire="no">
+		<property name="triggers">
+			<list>
+				<ref bean="SynCoreDateJobTrigger" />
+				<ref bean="SynBranchInfoJobTrigger" />
+				<ref bean="WarnTimeSendMegJobTrigger" />
+				<ref bean="SiteTimeTaskTrigger" />
+				<ref bean="LoadXGDataJobTrigger" />
+				<ref bean="LoadZNDataJobTrigger" />
+				<ref bean="ApprovalWarnSendMsgJobTrigger" />
+				<ref bean="Inspection1JobTrigger" />
+				<ref bean="QuestionWarnSendMsgJobTrigger" />
+				<ref bean="NewlyRiskWarnSendMsgJob1Trigger" />
+				<ref bean="MergerTradeInfoDataJobTrigger" />
+				<ref bean="LoadBlackBookDataJobTrigger" />
+				<ref bean="LoadSynTradeInfoDataJobTrigger" />
+			</list>
+		</property>
+	</bean>
+
+</beans>

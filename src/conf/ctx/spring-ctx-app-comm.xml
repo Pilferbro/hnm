@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:context="http://www.springframework.org/schema/context"
+xmlns:mvc="http://www.springframework.org/schema/mvc"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:jaxws="http://cxf.apache.org/jaxws"
+xmlns:cxf="http://cxf.apache.org/core"
+xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+http://www.springframework.org/schema/mvc
+http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+http://cxf.apache.org/jaxws
+http://cxf.apache.org/schema/jaxws.xsd">
+
+<!-- 子工程自己持有 -->
+
+<!-- 配置后端通讯相关的内容 比如通道配置/配置后端地址/超时等内容,具体的需要应用进行修改-->
+<!-- beanID 为后端交易的"comm_type"+"back_srv_key" -->
+
+
+    <!-- HTTP通道 ，通道ID与对象FwBacktrans中back_srv_key一一对应-->
+    <!-- 不同通道配置不同地址，最大链接数量等信息 -->
+    <bean id="01GATWAY" class="com.nantian.mfp.framework.communication.HttpCommunication">
+        <constructor-arg name="requestTimeOut" value="62000" />
+        <constructor-arg name="connectTimeOut" value="62000" />
+        <constructor-arg name="socketTimeOut" value="62000"/>
+        <!--<constructor-arg name="url" value="http://198.1.1.72:30107/msap" />-->
+        <!--  57 uat  11.8.129.95 121-->
+        <constructor-arg name="url" value="http://11.8.129.95:30107/msap" />
+        <!--  48 准生产 -->
+         <!--<constructor-arg name="url" value="http://11.8.129.94:30107/msap" />-->
+        <!--  38  -->
+        <!--  <constructor-arg name="url" value="http://11.8.129.97:30107/msap" />  -->
+        <!--  49 开发 -->
+        <!--<constructor-arg name="url" value="http://11.8.130.204:30107/msap" />-->
+        <constructor-arg name="requestMethod" value="post"/>
+        <constructor-arg name="maxConn" value="100"/>
+        <constructor-arg name="keepAlive" value="Keep-Alive"/>
+        <constructor-arg name="charset" value="UTF-8"/>
+        <constructor-arg name="paramName" value="none"/>
+        <constructor-arg name="staticHeader">
+            <map>
+                <entry key="accept" value="application/xml"/>
+                <entry key="contentType" value="application/xml"/>
+            </map>
+        </constructor-arg>
+    </bean>
+
+    <bean id="OAUTH" class="com.nantian.mfp.framework.communication.HttpCommunication">
+        <constructor-arg name="requestTimeOut" value="62000" />
+        <constructor-arg name="connectTimeOut" value="62000" />
+        <constructor-arg name="socketTimeOut" value="62000"/>
+        <!-- UAT环境 -->
+        <constructor-arg name="url" value="http://11.8.130.33:8443/idp/oauth2"/>
+        <!-- 生产环境 -->
+        <!--  <constructor-arg name="url" value="http://11.8.130.33:8443/idp/oauth2"/> -->
+        <constructor-arg name="requestMethod" value="post"/>
+        <constructor-arg name="maxConn" value="100"/>
+        <constructor-arg name="keepAlive" value="Keep-Alive"/>
+        <constructor-arg name="charset" value="UTF-8"/>
+        <constructor-arg name="paramName" value="none"/>
+        <!--<constructor-arg name="paramName" value="application/json"/>-->
+        <constructor-arg name="staticHeader">
+            <map>
+                <entry key="accept" value="application/json"/>
+                <entry key="content-Type" value="application/json; charset=utf-8"/>
+            </map>
+        </constructor-arg>
+    </bean>
+
+    <bean id="OAUTH2" class="com.nantian.mfp.framework.communication.HttpCommunication">
+        <constructor-arg name="requestTimeOut" value="62000" />
+        <constructor-arg name="connectTimeOut" value="62000" />
+        <constructor-arg name="socketTimeOut" value="62000"/>
+        <!-- UAT环境 -->
+        <constructor-arg name="url" value="http://11.8.130.33:8443/idp/oauth2"/>
+        <!-- 生产环境 -->
+        <!--  <constructor-arg name="url" value="http://11.8.130.33:8443/idp/oauth2"/> -->
+        <constructor-arg name="requestMethod" value="get"/>
+        <constructor-arg name="maxConn" value="100"/>
+        <constructor-arg name="keepAlive" value="Keep-Alive"/>
+        <constructor-arg name="charset" value="UTF-8"/>
+        <constructor-arg name="paramName" value="none"/>
+        <!--<constructor-arg name="paramName" value="application/json"/>-->
+        <constructor-arg name="staticHeader">
+            <map>
+                <entry key="accept" value="application/json"/>
+                <entry key="content-Type" value="application/json; charset=utf-8"/>
+            </map>
+        </constructor-arg>
+    </bean>
+
+
+</beans>

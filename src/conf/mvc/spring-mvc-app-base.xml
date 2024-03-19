@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:context="http://www.springframework.org/schema/context"
+xmlns:mvc="http://www.springframework.org/schema/mvc"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-4.1.xsd
+http://www.springframework.org/schema/mvc
+http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd"  default-autowire="byName">
+<!-- 应用相关的非框架性的配置文件 -->
+
+<!-- 扫描所有ctrl目录下面的控制器controller -->
+
+
+<context:component-scan base-package="com.gdnybank.hnm" use-default-filters="false">
+	<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+</context:component-scan>
+	<mvc:resources mapping="/download/**" location="/download/"></mvc:resources>
+	<mvc:resources mapping="/dist/**" location="/dist/"></mvc:resources>
+	<mvc:resources mapping="/h5/**" location="/h5/"></mvc:resources>
+	<mvc:resources mapping="/media/**" location="/media/"></mvc:resources>
+</beans>
